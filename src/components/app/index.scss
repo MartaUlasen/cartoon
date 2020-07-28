@@ -1,0 +1,31 @@
+.header {
+    font-weight: 900;
+    font-size: 4em;
+    text-align: center;
+    background: rgb(255, 255, 255);
+}
+
+.main {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+.icon-loading {
+    width: 100%;
+    margin: 0 auto;
+    animation-name: spin;
+    animation-duration: 2000ms;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}

@@ -1,3 +1,46 @@
 .card {
-    border: 1px solid black;
+    display: flex;
+    margin-bottom: 20px;
+    color: rgb(255, 255, 255);
+    background-color: rgb(60, 62, 68);
+
+    &__description {
+        padding: 1rem;
+    }
+
+    &__name {
+        margin-bottom: 0.5rem;
+        font-weight: 800;
+        font-size: 1.5rem;
+    }
+
+    &__status {
+        margin-bottom: 1rem;
+        color: rgb(158, 158, 158);
+        font-weight: 800;
+    }
+
+    &__status--alive {
+        color: rgb(85, 204, 68);
+    }
+
+    &__status--dead {
+        color: rgb(214, 61, 46);
+    }
+
+    &__additional {
+        margin-bottom: 0.5rem;
+    }
+
+    &__additional-title {
+        color: rgb(158, 158, 158);
+        font-weight: 600;
+        font-size: 1rem;
+    }
+
+    &__additional-value {
+        color: rgb(255, 255, 255);
+        font-weight: 600;
+        font-size: 1rem;
+    }
 }

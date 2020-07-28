@@ -19,7 +19,6 @@ const characterListModule = createSlice({
             state.characters = state.characters === undefined
                 ? action.payload.results
                 : [...state.characters, ...action.payload.results];
-            console.log(action.payload.info);
             state.next = action.payload.info.next;
         },
         requestCharacterListError: (state, action) => {

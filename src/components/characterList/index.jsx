@@ -1,6 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef, useCallback } from 'react';
 import { actions } from 'store/characterList';
 import { connect } from 'react-redux';
+import CharacterCard from 'components/characterCard';
+import { Loader } from 'react-feather';
 
 const CharacterList = ({
     loading,
@@ -9,35 +11,50 @@ const CharacterList = ({
     next,
     requestCharacterList,
 }) => {
+    const loader = useRef(null);
+
+    const loadMoreCharacters = useCallback((entries) => {
+        const target = entries[0]; // что такое entries
+        if (target.isIntersecting && next) {
+            requestCharacterList(next);
+        }
+    }, [next, requestCharacterList]);
+
     useEffect(() => {
         requestCharacterList('https://rickandmortyapi.com/api/character');
     }, [requestCharacterList]);
 
-    const buttonHandler = () => {
-        requestCharacterList(next);
-    };
+    useEffect(() => {
+        const options = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.2,
+        };
+
+        const observer = new IntersectionObserver(loadMoreCharacters, options);
+
+        if (loader && loader.current) {
+            observer.observe(loader.current);
+        }
+
+        return () => observer.unobserve(loader.current);
+    }, [loader, loadMoreCharacters]);
+
     return (
         <>
             <div>
-                {loading && <span>Loading</span>}
-                {characters?.map((character, id) => <div key={character.id}>{`${id + 1} ${character.name}`}</div>)}
+                {characters?.map(
+                    (character) => <CharacterCard key={character.id} data={character} />)}
                 {error && <span>{error}</span>}
             </div>
-            <button
-                type='button'
-                onClick={buttonHandler}
-            >
-                Load more
-
-            </button>
+            <Loader ref={loader}>{loading && <Loader className='icon-loading' size={20} />}</Loader>
         </>
     );
 };
 
 const mapStateToProps = ({ characterList }) => ({
-    isLoading: characterList.loading,
+    loading: characterList.loading,
     characters: characterList.characters,
-    prev: characterList.prev,
     next: characterList.next,
     error: characterList.error,
 });
