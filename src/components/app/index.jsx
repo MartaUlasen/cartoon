@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Link } from 'react-router-dom';
 import CharacterList from 'components/characterList';
 import Character from 'components/character';
 import './index.scss';
@@ -7,7 +7,7 @@ import './index.scss';
 const App = () => (
     <div className='app'>
         <header className='header'>
-            The Rick and Morty
+            <Link to='/' className='logo'>The Rick and Morty</Link>
         </header>
         <main className='main'>
             <Switch>
