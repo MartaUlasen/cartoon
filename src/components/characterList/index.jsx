@@ -11,34 +11,30 @@ const CharacterList = ({
     next,
     requestCharacterList,
 }) => {
-    const loader = useRef(null);
+    const loaderRef = useRef(null);
 
     const loadMoreCharacters = useCallback((entries) => {
-        const target = entries[0]; // что такое entries
+        const target = entries[0];
         if (target.isIntersecting && next) {
             requestCharacterList(next);
         }
     }, [next, requestCharacterList]);
 
     useEffect(() => {
-        requestCharacterList('https://rickandmortyapi.com/api/character');
-    }, [requestCharacterList]);
+        const observerTarget = loaderRef.current;
 
-    useEffect(() => {
-        const options = {
+        const observer = new IntersectionObserver(loadMoreCharacters, {
             root: null,
             rootMargin: '0px',
             threshold: 0.2,
-        };
+        });
 
-        const observer = new IntersectionObserver(loadMoreCharacters, options);
-
-        if (loader && loader.current) {
-            observer.observe(loader.current);
+        if (loaderRef && observerTarget) {
+            observer.observe(observerTarget);
         }
 
-        return () => observer.unobserve(loader.current);
-    }, [loader, loadMoreCharacters]);
+        return () => observer.unobserve(observerTarget);
+    }, [loaderRef, loadMoreCharacters]);
 
     return (
         <>
@@ -47,7 +43,7 @@ const CharacterList = ({
                     (character) => <CharacterCard key={character.id} data={character} />)}
                 {error && <span>{error}</span>}
             </div>
-            <Loader ref={loader}>{loading && <Loader className='icon-loading' size={20} />}</Loader>
+            <div ref={loaderRef}>{loading && <Loader className='icon-loading' size={20} />}</div>
         </>
     );
 };
