@@ -12,7 +12,7 @@ const App = () => (
         <main className='main'>
             <Switch>
                 <Route exact path='/' component={CharacterList} />
-                <Route exact path='/characters/:id' component={Character} />
+                <Route exact path='/characters/:id' render={({ match: { params: { id } } }) => <Character id={id} />} />
             </Switch>
         </main>
     </div>
