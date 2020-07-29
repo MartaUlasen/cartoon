@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
     loading: false,
     characters: undefined,
-    next: undefined,
+    next: 'https://rickandmortyapi.com/api/character',
     error: undefined,
 };
 
@@ -13,6 +13,7 @@ const characterListModule = createSlice({
     reducers: {
         requestCharacterList: (state) => {
             state.loading = true;
+            state.error = undefined;
         },
         requestCharacterListSuccess: (state, action) => {
             state.loading = false;

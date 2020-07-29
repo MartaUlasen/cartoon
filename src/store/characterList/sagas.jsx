@@ -1,5 +1,5 @@
 import {
-    all, put, call, takeLeading,
+    put, call, takeLeading,
 } from 'redux-saga/effects';
 import { actions } from 'store/characterList';
 import axios from 'axios';
@@ -16,10 +16,4 @@ export function* fetchCharacterListWorker({ payload }) {
 
 export function* fetchCharacterListWatcher() {
     yield takeLeading(actions.requestCharacterList.toString(), fetchCharacterListWorker);
-}
-
-export default function* rootSaga() {
-    yield all([
-        fetchCharacterListWatcher(),
-    ]);
 }
