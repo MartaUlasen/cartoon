@@ -2,9 +2,9 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
     loading: false,
-    characters: undefined,
-    next: 'https://rickandmortyapi.com/api/character',
+    data: undefined,
     error: undefined,
+    next: 'https://rickandmortyapi.com/api/character',
 };
 
 const characterListModule = createSlice({
@@ -17,9 +17,9 @@ const characterListModule = createSlice({
         },
         requestCharacterListSuccess: (state, action) => {
             state.loading = false;
-            state.characters = state.characters === undefined
+            state.data = state.data === undefined
                 ? action.payload.results
-                : [...state.characters, ...action.payload.results];
+                : [...state.data, ...action.payload.results];
             state.next = action.payload.info.next;
         },
         requestCharacterListError: (state, action) => {

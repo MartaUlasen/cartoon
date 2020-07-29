@@ -3,14 +3,13 @@ import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 import './index.scss';
 
-const getHrefId = (href) => href.split('/').filter((v) => v).pop();
+const getHrefId = (href) => href?.split('/').filter((v) => v).pop();
 
-const CharacterCard = (props) => {
-    const {
-        data: {
-            name, status, species, gender, image, location, url,
-        },
-    } = props;
+const CharacterCard = ({
+    data: {
+        name, status, species, gender, image, location, url,
+    } = {},
+}) => {
     const path = `/characters/${getHrefId(url)}`;
     const statusClass = classNames({
         card__status: true,
@@ -34,7 +33,7 @@ const CharacterCard = (props) => {
                 </div>
                 <div className='card__additional'>
                     <div className='card__additional-title'>Location:</div>
-                    <div className='card__additional-value'>{location.name}</div>
+                    <div className='card__additional-value'>{location?.name}</div>
                 </div>
             </div>
         </Link>

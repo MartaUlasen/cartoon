@@ -2,12 +2,13 @@ import React, { useEffect, useRef, useCallback } from 'react';
 import { actions } from 'store/characterList';
 import { connect } from 'react-redux';
 import CharacterCard from 'components/characterCard';
+import ErrorMessage from 'components/errorMessage';
 import { Loader } from 'react-feather';
 
 const CharacterList = ({
     loading,
+    data,
     error,
-    characters,
     next,
     requestCharacterList,
 }) => {
@@ -39,9 +40,9 @@ const CharacterList = ({
     return (
         <>
             <div>
-                {characters?.map(
+                {data?.map(
                     (character) => <CharacterCard key={character.id} data={character} />)}
-                {error && <span>{error}</span>}
+                {error && <ErrorMessage error={error} />}
             </div>
             <div ref={loaderRef}>{loading && <Loader className='icon-loading' size={20} />}</div>
         </>
@@ -50,9 +51,9 @@ const CharacterList = ({
 
 const mapStateToProps = ({ characterList }) => ({
     loading: characterList.loading,
-    characters: characterList.characters,
-    next: characterList.next,
+    data: characterList.data,
     error: characterList.error,
+    next: characterList.next,
 });
 
 const mapDispatchToProps = {
