@@ -1,16 +1,12 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 import './index.scss';
 
-const getHrefId = (href) => href?.split('/').filter((v) => v).pop();
-
 const CharacterCard = ({
     data: {
-        name, status, species, gender, image, location, url,
+        name, status, species, gender, image, location,
     } = {},
 }) => {
-    const path = `/characters/${getHrefId(url)}`;
     const statusClass = classNames({
         card__status: true,
         'card__status--alive': status === 'Alive',
@@ -18,7 +14,7 @@ const CharacterCard = ({
     });
 
     return (
-        <Link to={path} className='card'>
+        <div className='card'>
             <img className='card__img' src={image} alt={name} />
             <div className='card__description'>
                 <h5 className='card__name'>{name}</h5>
@@ -36,7 +32,7 @@ const CharacterCard = ({
                     <div className='card__additional-value'>{location?.name}</div>
                 </div>
             </div>
-        </Link>
+        </div>
     );
 };
 

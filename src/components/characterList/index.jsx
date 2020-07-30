@@ -1,9 +1,13 @@
 import React, { useEffect, useRef, useCallback } from 'react';
-import { actions } from 'store/characterList';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { actions } from 'store/characterList';
 import CharacterCard from 'components/characterCard';
 import ErrorMessage from 'components/errorMessage';
 import { Loader } from 'react-feather';
+import './index.scss';
+
+const getHrefId = (href) => href?.split('/').filter((v) => v).pop();
 
 const CharacterList = ({
     loading,
@@ -41,7 +45,15 @@ const CharacterList = ({
         <>
             <div>
                 {data?.map(
-                    (character) => <CharacterCard key={character.id} data={character} />)}
+                    (character) => {
+                        const path = `/characters/${getHrefId(character.url)}`;
+                        return (
+                            <Link to={path} className='card-link'>
+                                <CharacterCard key={character.id} data={character} />
+                            </Link>
+                        );
+                    }
+                )}
                 {error && <ErrorMessage error={error} />}
             </div>
             <div ref={loaderRef}>{loading && <Loader className='icon-loading' size={20} />}</div>
