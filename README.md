@@ -1,8 +1,5 @@
-## Test task
-На основе API [https://rickandmortyapi.com/](https://rickandmortyapi.com/), реализовать React 
-приложение, lazy-список героев из мультсериала (lazy-список -список, в котором элементы 
-подгружаются с бекенда частями, т.е. когда скроллдоходит до конца страницы -получаем 
-следующую часть списка и т.д. пока у бекенда еще есть для нас данные).
+## Single page aplication The Rick and Morty
+Application based on [https://rickandmortyapi.com/](https://rickandmortyapi.com/) API with lazy-loaded hero list.
 
 ## Available Scripts
 
@@ -19,7 +16,10 @@ You will also see any lint errors in the console.
 ### `npm test`
 
 Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+
+### `npm run lint`
+
+Does eslint and stylelint check<br />
 
 ### `npm run build`
 
@@ -29,4 +29,4 @@ It correctly bundles React in production mode and optimizes the build for the be
 The build is minified and the filenames include the hashes.<br />
 Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+
