@@ -3,6 +3,8 @@ import './index.scss';
 
 const ErrorMessage = ({
     error,
-}) => (<span className='error'>{error}</span>);
+}) => (
+    <div className='error'>{error}</div>
+);
 
 export default ErrorMessage;

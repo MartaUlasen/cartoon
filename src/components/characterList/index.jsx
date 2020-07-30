@@ -41,6 +41,12 @@ const CharacterList = ({
         return () => observer.unobserve(observerTarget);
     }, [loaderRef, loadMoreCharacters]);
 
+    const loadNextCharacters = () => {
+        if (next) {
+            requestCharacterList(next);
+        }
+    };
+
     return (
         <>
             <div>
@@ -48,13 +54,24 @@ const CharacterList = ({
                     (character) => {
                         const path = `/characters/${getHrefId(character.url)}`;
                         return (
-                            <Link to={path} className='card-link'>
-                                <CharacterCard key={character.id} data={character} />
+                            <Link key={character.id} to={path} className='card-link'>
+                                <CharacterCard data={character} />
                             </Link>
                         );
                     }
                 )}
                 {error && <ErrorMessage error={error} />}
+                {error
+                && next
+                && (
+                    <button
+                        className='button-load-more'
+                        type='button'
+                        onClick={loadNextCharacters}
+                    >
+                        Load more characters
+                    </button>
+                )}
             </div>
             <div ref={loaderRef}>{loading && <Loader className='icon-loading' size={20} />}</div>
         </>
