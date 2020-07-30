@@ -18,17 +18,23 @@ const CharacterList = ({
 }) => {
     const loaderRef = useRef(null);
 
-    const loadMoreCharacters = useCallback((entries) => {
-        const target = entries[0];
-        if (target.isIntersecting && next) {
+    const loadMoreCharacters = useCallback(() => {
+        if (next) {
             requestCharacterList(next);
         }
-    }, [next, requestCharacterList]);
+    }, [requestCharacterList, next]);
+
+    const observerCallback = useCallback((entries) => {
+        const target = entries[0];
+        if (target.isIntersecting) {
+            loadMoreCharacters();
+        }
+    }, [loadMoreCharacters]);
 
     useEffect(() => {
         const observerTarget = loaderRef.current;
 
-        const observer = new IntersectionObserver(loadMoreCharacters, {
+        const observer = new IntersectionObserver(observerCallback, {
             root: null,
             rootMargin: '0px',
             threshold: 0.2,
@@ -39,13 +45,7 @@ const CharacterList = ({
         }
 
         return () => observer.unobserve(observerTarget);
-    }, [loaderRef, loadMoreCharacters]);
-
-    const loadNextCharacters = () => {
-        if (next) {
-            requestCharacterList(next);
-        }
-    };
+    }, [loaderRef, observerCallback]);
 
     return (
         <>
@@ -62,12 +62,11 @@ const CharacterList = ({
                 )}
                 {error && <ErrorMessage error={error} />}
                 {error
-                && next
                 && (
                     <button
                         className='button-load-more'
                         type='button'
-                        onClick={loadNextCharacters}
+                        onClick={loadMoreCharacters}
                     >
                         Load more characters
                     </button>
