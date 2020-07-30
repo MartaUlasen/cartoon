@@ -5,7 +5,7 @@ import { Loader } from 'react-feather';
 import CharacterCard from 'components/characterCard';
 import ErrorMessage from 'components/errorMessage';
 
-const Character = ({
+export const Character = ({
     id,
     loading,
     data,
@@ -20,7 +20,13 @@ const Character = ({
         <>
             {error && <ErrorMessage error={error} />}
             {loading
-                ? <Loader className='icon-loading' size={20} />
+                ? (
+                    <Loader
+                        className='icon-loading'
+                        size={20}
+                        data-testid='loader'
+                    />
+                )
                 : (<CharacterCard data={data} />)}
         </>
     );
@@ -35,4 +41,5 @@ const mapStateToProps = ({ character }) => ({
 const mapDispatchToProps = {
     requestCharacter: actions.requestCharacter,
 };
+
 export default connect(mapStateToProps, mapDispatchToProps)(Character);

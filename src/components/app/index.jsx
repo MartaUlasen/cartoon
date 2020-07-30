@@ -5,7 +5,7 @@ import Character from 'components/character';
 import './index.scss';
 
 const App = () => (
-    <div className='app'>
+    <div className='app' data-testid='app'>
         <header className='header'>
             <Link to='/' className='logo'>The Rick and Morty</Link>
         </header>

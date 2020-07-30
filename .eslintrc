@@ -50,7 +50,7 @@
         ]
       }
     ],
-    "import/no-unresolved": "off",
+    "import/no-named-as-default": "off",
     "comma-dangle": [
       "error",
       {

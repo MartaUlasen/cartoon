@@ -1,12 +1,12 @@
 import {
     put, call, takeLatest,
 } from 'redux-saga/effects';
-import { actions } from 'store/character';
 import axios from 'axios';
+import { actions } from 'store/character';
 
 export function* fetchCharacterWorker({ payload }) {
     try {
-        const result = yield call(() => axios.get(payload));
+        const result = yield call(axios.get, payload);
         yield put(actions.requestCharacterSuccess(result.data));
     }
     catch (e) {

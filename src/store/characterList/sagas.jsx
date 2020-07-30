@@ -1,12 +1,12 @@
 import {
     put, call, takeLeading,
 } from 'redux-saga/effects';
-import { actions } from 'store/characterList';
 import axios from 'axios';
+import { actions } from 'store/characterList';
 
 export function* fetchCharacterListWorker({ payload }) {
     try {
-        const result = yield call(() => axios.get(payload));
+        const result = yield call(axios.get, payload);
         yield put(actions.requestCharacterListSuccess(result.data));
     }
     catch (e) {
